@@ -39,7 +39,7 @@ const userLogin = async (req, res) => {
         }
 
         const isPasswordValid = await bcrypt.compare(password, userDetails.password);
-        if (!isPasswordValid) {
+        if (!isPasprocess.env.JWT_SECRETswordValid) {
             return res.status(401).json({ message: "Invalid password" });
         }
         console.log(userDetails._id.toString())
@@ -67,7 +67,7 @@ const authentication = async (req, res, next) => {
     }
 
     try{
-        const payload = jwt.verify(jwtToken, "JWT_SECRET");
+        const payload = jwt.verify(jwtToken, process.env.JWT_SECRET || "JWT_SECRET");
         console.log(payload.userId);
         req.userId = payload.userId;
         next();

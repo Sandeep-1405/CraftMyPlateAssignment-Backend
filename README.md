@@ -1,4 +1,4 @@
-Restaurant and Menu Management Backend
+# Restaurant and Menu Management Backend
 
 This backend system provides APIs for user registration, login, restaurant management, menu item management, and order processing. It is built with Node.js, Express, MongoDB, and JWT for authentication.
 
@@ -12,9 +12,8 @@ Environment Variables
 Running the Project
 API Endpoints
 Dependencies
-Testing
 
-Features
+## Features
 
 User Management: User signup, login, profile update, and user details.
 Restaurant Management: Add, update, and manage restaurants.
@@ -22,7 +21,7 @@ Menu Management: Add, update, and manage restaurant menu items.
 Order Management: Place orders, track order statuses, and view order details.
 JWT Authentication: Secure APIs using JWT tokens.
 
-Technologies
+## Technologies
 
 Node.js: JavaScript runtime.
 Express.js: Web framework for Node.js.
@@ -33,26 +32,26 @@ jsonwebtoken: For JWT token generation and verification.
 dotenv: For loading environment variables from a .env file.
 cors: For enabling Cross-Origin Resource Sharing.
 
-Requirements
+## Requirements
 
 Before you start, make sure you have the following installed:
 
 Node.js (v14.x or higher)
 MongoDB
 
-Installation
+## Installation
 
 Clone the repository:
-
 
 git clone https://github.com/your-username/restaurant-management-backend.git
 cd restaurant-management-backend
 
 Install dependencies:
 
-
 npm install
-Environment Variables
+
+## Environment Variables:
+
 Create a .env file in the root directory and add the following:
 
 PORT=3000
@@ -61,20 +60,19 @@ JWT_SECRET=<your-jwt-secret>
 Replace <your-mongo-uri> with your MongoDB connection string and <your-jwt-secret> with your JWT secret.
 
 Running the Project
+
 Start the MongoDB server (if it's not running already):
 
-
-
-mongod
-Run the Node.js server:
-
-
 npm start
+
 The backend will be running on http://localhost:3000.
 
-API Endpoints
+## API Endpoints
+
 User Management
-POST /api/register
+
+POST '/register'
+
 Registers a new user.
 
 Request Body:
@@ -86,65 +84,76 @@ json
     "email": "string",
     "password": "string"
 }
-POST /api/login
+
+POST '/login'
+
 Logs in a user and returns a JWT token.
 
 Request Body:
 
 json
-""
+
 {
     "email": "string",
     "password": "string"
 }
-PUT /api/profile
+
+PUT `/profile`
+
 Updates user profile.
 
 Request Body:
 
 json
-""
+
 {
     "id": "user_id",
     "name": "string",
     "email": "string"
 }
-GET /api/profile
+
+GET `/profile`
+
 Retrieves user details (requires authentication).
 
 Restaurant Management
-POST /api/restaurants
+
+POST `/restaurants`
+
 Creates a new restaurant.
 
 Request Body:
 
 json
-""
+
 {
     "name": "string",
     "location": "string"
 }
-PUT /api/restaurants/
+
+PUT `/restaurants/{restaurantId}`
 
 Updates restaurant details.
 
 Request Body:
 
 json
-""
+
 {
     "name": "string",
     "location": "string"
 }
+
 Menu Management
-POST /api/restaurants/
-/menu
+
+POST `/restaurants/{restaurantId}/menu`
+
 Adds items to a restaurant's menu.
 
 Request Body:
 
 json
-""
+
 {
     "items": [
         {
@@ -156,15 +165,15 @@ json
         }
     ]
 }
-PUT /api/restaurants/
-/menu/
+
+PUT `/restaurants/{restaurantId}/menu/{itemId}`
 
 Updates a specific menu item.
 
 Request Body:
 
 json
-""
+
 {
     "name": "string",
     "description": "string",
@@ -172,14 +181,17 @@ json
     "available": true,
     "category": "string"
 }
+
 Order Management
-POST /api/orders
+
+POST '/orders'
+
 Places a new order.
 
 Request Body:
 
 json
-""
+
 {
     "userId": "user_id",
     "restaurantId": "restaurant_id",
@@ -192,33 +204,36 @@ json
     "deliveryAddress": "string",
     "totalCost": "number"
 }
-GET /api/orders/
+
+GET `/orders/{orderId}`
 
 Retrieves order details.
 
-PUT /api/orders/
-/status
+PUT `/orders/{orderId}/status`
+
 Updates order status.
 
 Request Body:
 
 json
-""
+
 {
     "status": "string"  // e.g., "Pending", "Confirmed", etc.
 }
-GET /api/orders
+
+GET /orders
+
 Retrieves all orders for the logged-in user.
 
-GET /api/orders/
-/track
+GET `/orders/{orderId}/track`
+
 Tracks the status of an order.
 
-Dependencies
+## Dependencies
+
 This project uses the following dependencies:
 
 json
-""
 {
   "bcrypt": "^5.1.1",
   "cors": "^2.8.5",

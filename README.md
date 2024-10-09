@@ -61,8 +61,6 @@ Replace <yourmongouri> with your MongoDB connection string and <your-jwt-secret>
 
 ## Running the Project
 
-Start the MongoDB server (if it's not running already):
-
 npm start
 
 The backend will be running on http://localhost:3000.

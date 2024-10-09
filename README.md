@@ -59,7 +59,7 @@ MONGO_URI= your-mongo-uri
 JWT_SECRET= yourjwtsecret
 Replace <yourmongouri> with your MongoDB connection string and <your-jwt-secret> with your JWT secret.
 
-Running the Project
+## Running the Project
 
 Start the MongoDB server (if it's not running already):
 

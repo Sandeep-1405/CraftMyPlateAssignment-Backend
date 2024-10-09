@@ -43,7 +43,7 @@ MongoDB
 
 Clone the repository:
 
-git clone https://github.com/your-username/restaurant-management-backend.git
+git clone [https://github.com/your-username/restaurant-management-backend.git](https://github.com/Sandeep-1405/CraftMyPlateAssignment-Backend.git)
 cd restaurant-management-backend
 
 Install dependencies:

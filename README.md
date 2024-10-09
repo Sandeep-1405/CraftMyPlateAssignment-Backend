@@ -55,9 +55,9 @@ npm install
 Create a .env file in the root directory and add the following:
 
 PORT=3000
-MONGO_URI=<your-mongo-uri>
-JWT_SECRET=<your-jwt-secret>
-Replace <your-mongo-uri> with your MongoDB connection string and <your-jwt-secret> with your JWT secret.
+MONGO_URI= your-mongo-uri
+JWT_SECRET= yourjwtsecret
+Replace <yourmongouri> with your MongoDB connection string and <your-jwt-secret> with your JWT secret.
 
 Running the Project
 

@@ -1,244 +1,302 @@
-# Restaurant and Menu Management Backend
+# Restaurant Management API
 
-This backend system provides APIs for user registration, login, restaurant management, menu item management, and order processing. It is built with Node.js, Express, MongoDB, and JWT for authentication.
+This API allows users to manage restaurants, menu items, and orders. It supports user registration, authentication, and various operations for restaurants and orders.
 
-Table of Contents
+## Table of Contents
 
-Features
-Technologies
-Requirements
-Installation
-Environment Variables
-Running the Project
-API Endpoints
-Dependencies
+- [Setup Instructions](#setup-instructions)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [API Endpoints](#api-endpoints)
+  - [User Management](#user-management)
+  - [Restaurant Management](#restaurant-management)
+  - [Menu Management](#menu-management)
+  - [Order Management](#order-management)
+- [Testing the API](#testing-the-api)
+
+  ## Setup Instructions
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/repositoryname.git
+    cd repositoryname
+    ```
+
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Set up your environment variables in a `.env` file:
+    ```
+    JWT_SECRET=your_jwt_secret
+    MONGODB_URI=your_mongodb_uri
+    ```
+
+4. Start the server:
+    ```bash
+    npm start
+    ```
 
 ## Features
 
-User Management: User signup, login, profile update, and user details.
-Restaurant Management: Add, update, and manage restaurants.
-Menu Management: Add, update, and manage restaurant menu items.
-Order Management: Place orders, track order statuses, and view order details.
-JWT Authentication: Secure APIs using JWT tokens.
+- User registration and login with JWT authentication
+- Create, update, and manage restaurants
+- Add, update, and manage menu items
+- Place and track orders
+- Update order status
 
-## Technologies
+## Technologies Used
 
-Node.js: JavaScript runtime.
-Express.js: Web framework for Node.js.
-MongoDB: NoSQL database.
-Mongoose: MongoDB object modeling for Node.js.
-bcrypt: Password hashing.
-jsonwebtoken: For JWT token generation and verification.
-dotenv: For loading environment variables from a .env file.
-cors: For enabling Cross-Origin Resource Sharing.
-
-## Requirements
-
-Before you start, make sure you have the following installed:
-
-Node.js (v14.x or higher)
-MongoDB
-
-## Installation
-
-Clone the repository:
-
-git clone [https://github.com/your-username/restaurant-management-backend.git](https://github.com/Sandeep-1405/CraftMyPlateAssignment-Backend.git)
-cd restaurant-management-backend
-
-Install dependencies:
-
-npm install
-
-## Environment Variables:
-
-Create a .env file in the root directory and add the following:
-
-PORT=3000
-MONGO_URI= your-mongo-uri
-JWT_SECRET= yourjwtsecret
-Replace <yourmongouri> with your MongoDB connection string and <your-jwt-secret> with your JWT secret.
-
-## Running the Project
-
-npm start
-
-The backend will be running on http://localhost:3000.
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Bcrypt for password hashing
+- JSON Web Tokens (JWT) for authentication
 
 ## API Endpoints
 
-User Management
+### User Management
 
-POST '/register'
+#### Signup
+- **Endpoint:** `POST /api/register`
+- **Request Body:**
+    ```json
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "securepassword"
+    }
+    ```
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        "message": "User registered successfully!"
+      }
+      ```
+    - **Error:** `400 Bad Request`
+      ```json
+      {
+        "message": "Email already registered"
+      }
+      ```
 
-Registers a new user.
+#### Login
+- **Endpoint:** `POST /api/login`
+- **Request Body:**
+    ```json
+    {
+      "email": "john@example.com",
+      "password": "securepassword"
+    }
+    ```
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        "message": "Login successful",
+        "jwtToken": "your.jwt.token"
+      }
+      ```
+    - **Error:** `404 Not Found`
+      ```json
+      {
+        "message": "Invalid email"
+      }
+      ```
 
-Request Body:
-
-json
-
-{
-    "name": "string",
-    "email": "string",
-    "password": "string"
-}
-
-POST '/login'
-
-Logs in a user and returns a JWT token.
-
-Request Body:
-
-json
-
-{
-    "email": "string",
-    "password": "string"
-}
-
-PUT `/profile`
-
-Updates user profile.
-
-Request Body:
-
-json
-
-{
-    "id": "user_id",
-    "name": "string",
-    "email": "string"
-}
-
-GET `/profile`
-
-Retrieves user details (requires authentication).
-
-Restaurant Management
-
-POST `/restaurants`
-
-Creates a new restaurant.
-
-Request Body:
-
-json
-
-{
-    "name": "string",
-    "location": "string"
-}
-
-PUT `/restaurants/{restaurantId}`
-
-Updates restaurant details.
-
-Request Body:
-
-json
-
-{
-    "name": "string",
-    "location": "string"
-}
-
-Menu Management
-
-POST `/restaurants/{restaurantId}/menu`
-
-Adds items to a restaurant's menu.
-
-Request Body:
-
-json
-
-{
-    "items": [
-        {
-            "name": "string",
-            "description": "string",
-            "price": "number",
-            "available": true,
-            "category": "string"
+#### Update Profile
+- **Endpoint:** `PUT /api/updateProfile`
+- **Request Body:**
+    ```json
+    {
+      "id": "userId",
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+    ```
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        "message": "Profile updated successfully",
+        "userDetails": {
+          // updated user details
         }
-    ]
-}
+      }
+      ```
 
-PUT `/restaurants/{restaurantId}/menu/{itemId}`
+#### Get User Details
+- **Endpoint:** `GET /api/user`
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        "name": "John Doe",
+        "email": "john@example.com"
+      }
+      ```
 
-Updates a specific menu item.
+### Restaurant Management
 
-Request Body:
+#### Create a Restaurant
+- **Endpoint:** `POST /api/restaurants`
+- **Request Body:**
+    ```json
+    {
+      "name": "The Great Restaurant",
+      "location": "123 Food Lane"
+    }
+    ```
+- **Response:**
+    - **Success:** `201 Created`
+      ```json
+      {
+        // restaurant details
+      }
+      ```
 
-json
+#### Update Restaurant
+- **Endpoint:** `PUT /api/restaurants/:restaurantId`
+- **Request Body:**
+    ```json
+    {
+      "name": "Updated Restaurant Name",
+      "location": "456 New Address"
+    }
+    ```
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        "message": "Restaurant Updated"
+      }
+      ```
 
-{
-    "name": "string",
-    "description": "string",
-    "price": "number",
-    "available": true,
-    "category": "string"
-}
+### Menu Management
 
-Order Management
-
-POST '/orders'
-
-Places a new order.
-
-Request Body:
-
-json
-
-{
-    "userId": "user_id",
-    "restaurantId": "restaurant_id",
-    "items": [
+#### Add Items to Menu
+- **Endpoint:** `POST /api/restaurants/:restaurantId/menu`
+- **Request Body:**
+    ```json
+    {
+      "items": [
         {
-            "itemId": "item_id",
-            "quantity": "number"
+          "name": "Pizza",
+          "description": "Cheese and tomato",
+          "price": 10.99,
+          "available": true,
+          "category": "Main Course"
         }
-    ],
-    "deliveryAddress": "string",
-    "totalCost": "number"
-}
+      ]
+    }
+    ```
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        // updated restaurant details with menu items
+      }
+      ```
 
-GET `/orders/{orderId}`
+#### Update Menu Item
+- **Endpoint:** `PUT /api/menu/:itemId`
+- **Request Body:**
+    ```json
+    {
+      "name": "Updated Pizza",
+      "description": "New description",
+      "price": 12.99,
+      "available": true,
+      "category": "Main Course"
+    }
+    ```
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        // updated menu item details
+      }
+      ```
 
-Retrieves order details.
+### Order Management
 
-PUT `/orders/{orderId}/status`
+#### Place a New Order
+- **Endpoint:** `POST /api/orders`
+- **Request Body:**
+    ```json
+    {
+      "userId": "userId",
+      "restaurantId": "restaurantId",
+      "items": [
+        {
+          "itemId": "menuItemId",
+          "quantity": 2
+        }
+      ],
+      "deliveryAddress": "123 Delivery St",
+      "totalCost": 25.98
+    }
+    ```
+- **Response:**
+    - **Success:** `201 Created`
+      ```json
+      {
+        // order details
+      }
+      ```
 
-Updates order status.
+#### Get Order Details
+- **Endpoint:** `GET /api/orders/:orderId`
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        // order details
+      }
+      ```
 
-Request Body:
+#### Update Order Status
+- **Endpoint:** `PUT /api/orders/:orderId`
+- **Request Body:**
+    ```json
+    {
+      "status": "Delivered"
+    }
+    ```
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        // updated order details
+      }
+      ```
 
-json
+#### Get All Orders for User
+- **Endpoint:** `GET /api/orders`
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      [
+        // list of orders for the user
+      ]
+      ```
 
-{
-    "status": "string"  // e.g., "Pending", "Confirmed", etc.
-}
+#### Track Order
+- **Endpoint:** `GET /api/orders/track/:orderId`
+- **Response:**
+    - **Success:** `200 OK`
+      ```json
+      {
+        "status": "In Progress"
+      }
+      ```
 
-GET /orders
 
-Retrieves all orders for the logged-in user.
 
-GET `/orders/{orderId}/track`
+## Testing the API
 
-Tracks the status of an order.
+You can use tools like Postman or Insomnia to test the API endpoints. Ensure you send the correct headers, especially the Authorization header for protected routes.
 
-## Dependencies
-
-This project uses the following dependencies:
-
-json
-{
-  "bcrypt": "^5.1.1",
-  "cors": "^2.8.5",
-  "dotenv": "^16.4.5",
-  "express": "^4.21.0",
-  "jsonwebtoken": "^9.0.2",
-  "mongodb": "^6.9.0",
-  "mongoose": "^8.7.0",
-  "nodemon": "^3.1.7"
-}
